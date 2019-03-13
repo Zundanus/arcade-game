@@ -1,57 +1,100 @@
-// Enemies our player must avoid
-let Enemy = function(initX = 0,initY = 0, maxSpeed = 50, minSpeed = 50) {
-    // Variables applied to each of our instances go here,
-    // we've provided one for you to get started
-    this.startX = initX;
-    this.startY = initY;
-    this.x = initX;
-    this.y = initY;
+/**
+* @description Represents a movable object in the game, it contains the
+*              positioning, the image and the main drawing functions
+* @constructor
+* @param {int} startX - Startposition for the x (width) line
+* @param {int} startY - Startposition for the y (hight) line
+* @param {string} spirit - picture that will be drawn for the object
+*                          default is "images/enemy-bug.png"
+*/
+class MovableObject {
+  constructor(startX = 0,startY = 0, sprite = 'images/enemy-bug.png') {
+    this.startX = startX;
+    this.startY = startY;
+    this.x = startX;
+    this.y = startY;
+    this.sprite = sprite;
+  }
+  /**
+  * @description Draw the enemy on the screen, required method for game
+  */
+  render() {
+      ctx.drawImage(Resources.get(this.sprite), this.x, this.y);
+  }
+}
+
+/**
+* @description  Represents an enemy object in the game, it holds the
+*               positioning, the image, the main drawing functions and also
+*               the function for the movement of the object.
+* @remark       the movment speed will be generatet randomly, in the number
+*               range that is defined with maxSpeed and minSpeed
+* @constructor
+* @param {int} startX - Startposition for the x (width) line
+* @param {int} startY - Startposition for the y (hight) line
+* @param {int} minSpeed - the min Pixel value that the element will move
+* @param {int} maxSpeed - the max Pixel value that the element will move
+*/
+class Enemy extends MovableObject {
+  constructor(startX = 0, startY = 0, minSpeed = 50, maxSpeed = 50) {
+    super(startX,startY)
     this.maxSpeed = maxSpeed;
     this.minSpeed = minSpeed;
     this.speed = Math.floor((Math.random() * this.maxSpeed) +  this.minSpeed);
+  }
 
-    // The image/sprite for our enemies, this uses
-    // a helper we've provided to easily load images
-    this.sprite = 'images/enemy-bug.png';
-};
+  /**
+  * @description  Update the enemy's position, required method for game
+  * @constructor
+  * @param {int} dt - a time delta between ticks
+  *                   speed for all computers.
+  */
+  update(dt) {
+      if (this.x > 500) {
+        this.speed = Math.floor((Math.random() * this.maxSpeed) + this.minSpeed);
+        this.x = this.startX - this.speed;
+      }
+      this.x = this.x + (this.speed*dt);
+  }
+}
 
-// Update the enemy's position, required method for game
-// Parameter: dt, a time delta between ticks
-Enemy.prototype.update = function(dt) {
-    // You should multiply any movement by the dt parameter
-    // which will ensure the game runs at the same speed for
-    // all computers.
-    if (this.x > 500) {
-      this.speed = Math.floor((Math.random() * this.maxSpeed) + this.minSpeed);
-      this.x = this.startX - this.speed;
-    }
-    this.x = this.x + (this.speed*dt);
 
-};
+/**
+* @description  Represents a player object in the game, it holds the
+*               positioning, the image, the main drawing functions and also
+*               the function for the movement of the player with the key events.
+* @remark       the movment speed will be generatet randomly, in the number
+*               range that is defined with maxSpeed and minSpeed
+* @constructor
+* @param {int} startX - Startposition for the x (width) line
+* @param {int} startY - Startposition for the y (hight) line
+* @param {int} minSpeed - the min Pixel value that the element will move
+* @param {int} maxSpeed - the max Pixel value that the element will move
+*/
+class Player extends MovableObject {
+  constructor(startX = 0, startY = 0, movementX = 100, movementY = 84,sprite = 'images/char-boy.png') {
+    super(startX,startY)
+    this.speedX = movementX;
+    this.speedY = movementY;
+    this.sprite = sprite;
+  }
 
-// Draw the enemy on the screen, required method for game
-Enemy.prototype.render = function() {
-    ctx.drawImage(Resources.get(this.sprite), this.x, this.y);
-};
+  /**
+  * @description  Update the enemy's position, required method for game
+  * @constructor
+  * @param {int} dt - a time delta between ticks
+  *                   speed for all computers.
+  */
+  update(dt) {
+      // TODO: not implement jet
+  }
 
-// Now write your own player class
-// This class requires an update(), render() and
-// a handleInput() method.
-let Player = function (initX = 200,initY = 405,initSpeedX = 100,initSpeedY = 84) {
-  this.sprite = 'images/char-boy.png';
-  this.x = initX;
-  this.y = initY;
-  this.startX = initX;
-  this.startY = initY;
-  this.speedX = initSpeedX;
-  this.speedY = initSpeedY;
-  Player.prototype.render = function() {
-      ctx.drawImage(Resources.get(this.sprite), this.x, this.y);
-  };
-  Player.prototype.update = function() {
-      return 0;
-  };
-  Player.prototype.handleInput = function(key) {
+  /**
+  * @description  handles the movement of the player figuer
+  * @constructor
+  * @param {string} key - the key that the player pressd for the movement
+  */
+  handleInput(key) {
     switch (key) {
       case 'left':
           this.x = this.x - this.speedX;
@@ -67,17 +110,16 @@ let Player = function (initX = 200,initY = 405,initSpeedX = 100,initSpeedY = 84)
         break;
     }
     console.log(this.x,this.y);
-  };
-};
-
+  }
+}
 
 // Now instantiate your objects.
-// Place all enemy objects in an array called allEnemies
-// Place the player object in a variable called player
-let allEnemies = [new Enemy(-20,60,200,100),
-                  new Enemy(-20,143,150,75),
-                  new Enemy(-20,227,125,75)];
-let player = new Player();
+// enemy objects in an array called allEnemies
+let allEnemies = [new Enemy(-20,60,100,200),
+                  new Enemy(-20,143,75,150),
+                  new Enemy(-20,227,75,125)];
+// player object in a variable called player
+let player = new Player(200,405,100,84,'images/char-boy.png');
 
 
 // This listens for key presses and sends the keys to your
