@@ -45,7 +45,6 @@ class Enemy extends MovableObject {
 
   /**
   * @description  Update the enemy's position, required method for game
-  * @constructor
   * @param {int} dt - a time delta between ticks
   *                   speed for all computers.
   */
@@ -81,7 +80,6 @@ class Player extends MovableObject {
 
   /**
   * @description  Update the enemy's position, required method for game
-  * @constructor
   * @param {int} dt - a time delta between ticks
   *                   speed for all computers.
   */
@@ -91,25 +89,31 @@ class Player extends MovableObject {
 
   /**
   * @description  handles the movement of the player figuer
-  * @constructor
   * @param {string} key - the key that the player pressd for the movement
   */
   handleInput(key) {
     switch (key) {
       case 'left':
-          this.x = this.x - this.speedX;
+          if (this.x - this.speedX >= 0) {
+            this.x = this.x - this.speedX;
+          }
         break;
       case 'up':
-          this.y = this.y - this.speedY;
+          if (this.y - this.speedY >= 0) {
+            this.y = this.y - this.speedY;
+          }
         break;
       case 'right':
-          this.x = this.x + this.speedX;
+          if (this.x + this.speedX <= 400) {
+            this.x = this.x + this.speedX;
+          }
         break;
       case 'down':
+        if (this.y + this.speedY <= 405) {
           this.y = this.y + this.speedY;
+        }
         break;
     }
-    console.log(this.x,this.y);
   }
 }
 
@@ -122,8 +126,10 @@ let allEnemies = [new Enemy(-20,60,100,200),
 let player = new Player(200,405,100,84,'images/char-boy.png');
 
 
-// This listens for key presses and sends the keys to your
-// Player.handleInput() method. You don't need to modify this.
+/**
+* @description  This listens for key presses and sends the keys to your
+*               Player.handleInput() method. You don't need to modify this.
+*/
 document.addEventListener('keyup', function(e) {
     var allowedKeys = {
         37: 'left',
