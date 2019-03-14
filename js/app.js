@@ -25,16 +25,18 @@ class MovableObject {
   * @description  Checks if the object collides with a an nother game object
   * @remark       collision logic addaptet from
   *               https://stackoverflow.com/questions/13916966/adding-collision-detection-to-images-drawn-on-canvas
+  * @return returns the element that the object colides with
   */
   checkCollisions() {
     for (let elemet of allCollisionsObjects ) {
       /* The collision logic validation is adaptet from  the version of Antonella Dean's
    		 * collision check: Copyright (c) 2018 Antonella Bernobich Dean;
   		 * https://github.com/aberdean/google-scholarship-fend-projects/tree/master/classic-arcade-game-clone */
-       if (elemet != this && (Math.abs(player.x - elemet.x) <= 60) && (Math.abs(player.y - elemet.y) <= 14)) {
-          return true;
+       if (elemet != this && (Math.abs(player.x - elemet.x) <= 60) && (Math.abs(player.y - elemet.y) <= 16)) {
+          return elemet;
        }
     }
+    return null;
   }
 }
 
@@ -72,6 +74,46 @@ class Enemy extends MovableObject {
   }
 }
 
+/**
+* @description  Represents a gem object in the game, it holds the
+*               positioning, the image, the main drawing functions.
+* @constructor
+* @param {int} startX - Startposition for the x (width) line
+* @param {int} startY - Startposition for the y (hight) line
+* @param {int} color - color of the gem (1 blue, 2 green, 3 orange);
+*/
+class Gem extends MovableObject {
+  constructor(startX = 0, startY = 0, color = blue) {
+    super(startX,startY)
+    switch (color) {
+      case 1:
+        this.sprite = 'images/Gem Blue.png';
+        break;
+      case 2:
+          this.sprite = 'images/Gem Green.png';
+        break;
+      default:
+        this.sprite = 'images/Gem Orange.png';
+    }
+  }
+
+  /**
+  * @description  could update the movment of an gem
+  * @param {int} dt - a time delta between ticks
+  *                   speed for all computers.
+  */
+  update(dt) {
+
+  }
+
+  static getNewGem(){
+    let returnGem = new Gem(Math.floor((Math.random() * 0) + 400),
+                            Math.floor((Math.random() * 0) + 400),
+                            Math.floor((Math.random() * 1) + 2))
+    return returnGem;
+  }
+}
+
 
 /**
 * @description  Represents a player object in the game, it holds the
@@ -99,16 +141,28 @@ class Player extends MovableObject {
   *                   speed for all computers.
   */
   update(dt) {
-    if (super.checkCollisions()) {
-      this.reset();
+    let cObject = super.checkCollisions();
+    if (cObject != null) {
+        if (cObject instanceof Gem) {
+            gems = null;
+        }else{
+          this.reset();
+        }
     }
   }
 
+
+  /**
+  * @description  Sets the gaming figure back to start
+  */
   reset(){
     this.x = this.startX;
     this.y = this.startY;
   }
 
+  /**
+  * @description  displays the win screen
+  */
   win(){
     this.x = this.startX;
     reset();
@@ -155,9 +209,11 @@ let allEnemies = [new Enemy(-20,60,100,200),
                   new Enemy(-20,227,75,125)];
 // player object in a variable called player
 let player = new Player(200,405,100,84,'images/char-boy.png');
+let gems = Gem.getNewGem();
 
 let allCollisionsObjects = new Set(allEnemies);
 allCollisionsObjects.add(player);
+allCollisionsObjects.add(gems);
 
 /**
 * @description  This listens for key presses and sends the keys to your
