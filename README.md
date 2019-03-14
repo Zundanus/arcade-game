@@ -17,6 +17,9 @@ The following seits and resources where used to develop or inspire parts of this
 - Fellow course mates
 - instructions on how to get started https://docs.google.com/document/d/1v01aScPjSWCCWQLIpFqvg3-vXLH2e8_SZQKC8jNO0Dc/pub?embedded=true
 - for self-checking of my submission. [rubric](https://review.udacity.com/#!/rubrics/15/view)
+- The collision check logic validation is adaptet from  the version of Antonella Dean'scollision check: Copyright (c) 2018 Antonella Bernobich Dean;
+--(https://github.com/aberdean/google-scholarship-fend-projects/tree/master/classic-arcade-game-clone)
+
 
 ## Author
 - Holger Bötticher

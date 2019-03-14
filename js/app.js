@@ -21,6 +21,21 @@ class MovableObject {
   render() {
       ctx.drawImage(Resources.get(this.sprite), this.x, this.y);
   }
+  /**
+  * @description  Checks if the object collides with a an nother game object
+  * @remark       collision logic addaptet from
+  *               https://stackoverflow.com/questions/13916966/adding-collision-detection-to-images-drawn-on-canvas
+  */
+  checkCollisions() {
+    for (let elemet of allCollisionsObjects ) {
+      /* The collision logic validation is adaptet from  the version of Antonella Dean's
+   		 * collision check: Copyright (c) 2018 Antonella Bernobich Dean;
+  		 * https://github.com/aberdean/google-scholarship-fend-projects/tree/master/classic-arcade-game-clone */
+       if (elemet != this && (Math.abs(player.x - elemet.x) <= 60) && (Math.abs(player.y - elemet.y) <= 14)) {
+          return true;
+       }
+    }
+  }
 }
 
 /**
@@ -84,7 +99,20 @@ class Player extends MovableObject {
   *                   speed for all computers.
   */
   update(dt) {
-      // TODO: not implement jet
+    if (super.checkCollisions()) {
+      this.reset();
+    }
+  }
+
+  reset(){
+    this.x = this.startX;
+    this.y = this.startY;
+  }
+
+  win(){
+    this.x = this.startX;
+    reset();
+    alert('win win');
   }
 
   /**
@@ -101,6 +129,9 @@ class Player extends MovableObject {
       case 'up':
           if (this.y - this.speedY >= 0) {
             this.y = this.y - this.speedY;
+          }
+          else {
+            this.win();
           }
         break;
       case 'right':
@@ -125,6 +156,8 @@ let allEnemies = [new Enemy(-20,60,100,200),
 // player object in a variable called player
 let player = new Player(200,405,100,84,'images/char-boy.png');
 
+let allCollisionsObjects = new Set(allEnemies);
+allCollisionsObjects.add(player);
 
 /**
 * @description  This listens for key presses and sends the keys to your
