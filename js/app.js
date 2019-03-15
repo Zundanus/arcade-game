@@ -114,9 +114,9 @@ class Gem extends MovableObject {
   *                   speed for all computers.
   */
   static getNewGem(){
-    const x = Math.floor((Math.random() * 4) + 1) * 100;
-    const y = Math.floor((Math.random() * 4) + 1) * 76;
-    let returnGem = new Gem(x,y,Math.floor((Math.random() * 2) + 1))
+    const x = Math.floor((Math.random() * 3) + 1) * 100;
+    const y = Math.floor((Math.random() * 3) + 1) * 76;
+    let returnGem = new Gem(x,y,Math.floor((Math.random() * 3) + 1))
     return returnGem;
   }
 }
