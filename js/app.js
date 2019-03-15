@@ -148,10 +148,8 @@ class Player extends MovableObject {
     let cObject = super.checkCollisions();
     if (cObject != null) {
         if (cObject instanceof Gem) {
-            gems = null;
             allCollisionsObjects.delete(cObject);
-            gems = Gem.getNewGem();
-            allCollisionsObjects.add(gems);
+            allCollisionsObjects.add(Gem.getNewGem());
         }else{
           this.resetPlayer();
         }
@@ -212,17 +210,13 @@ class Player extends MovableObject {
 
 // Now instantiate your objects.
 // enemy objects in an array called allEnemies
-let allEnemies = [new Enemy(-20,60,100,200),
+let allCollisionsObjects = new Set([new Enemy(-20,60,100,200),
                   new Enemy(-20,143,75,150),
-                  new Enemy(-20,227,75,125)];
+                  new Enemy(-20,227,75,125)]);
 // player object in a variable called player
 let player = new Player(200,405,100,84,'images/char-boy.png');
-let gems = null;
-
-let allCollisionsObjects = new Set(allEnemies);
 allCollisionsObjects.add(player);
-gems = Gem.getNewGem();
-allCollisionsObjects.add(gems);
+allCollisionsObjects.add(Gem.getNewGem());
 
 
 /**
