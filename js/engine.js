@@ -21,7 +21,11 @@ var Engine = (function(global) {
     var doc = global.document,
         win = global.window,
         gameBord = doc.querySelector('#gameBord'),
-        score = doc.querySelector('#scores'),
+        gameInfo = doc.querySelector('#gameInfo'),
+        messageHeader = doc.querySelector('#messageHeader'),
+        messageText = doc.querySelector('#messageText'),
+        gameMessageBox = doc.querySelector('#gameMessageBox'),
+        finalScore = doc.querySelector('#finalScore'),
         canvas = doc.createElement('canvas'),
         ctx = canvas.getContext('2d'),
         lastTime;
@@ -92,8 +96,24 @@ var Engine = (function(global) {
      */
     function updateEntities(dt) {
         allCollisionsObjects.forEach(function(enemy) {
-            enemy.update(dt);
+          enemy.update(dt);
         });
+        if (player.won) {
+          finalScore.innerHTML = player.points;
+          messageText.innerHTML = 'You won with a score of ';
+          messageHeader.innerHTML = 'You WON !!!';
+          gameBord.classList.add('hide');
+          gameInfo.classList.add('hide');
+          gameMessageBox.classList.remove('hide');
+        }
+        else if (player.dead) {
+          finalScore.innerHTML = player.points;
+          messageText.innerHTML = 'You lost with a score of ';
+          messageHeader.innerHTML = 'You LOST !!!';
+          gameBord.classList.add('hide');
+          gameInfo.classList.add('hide');
+          gameMessageBox.classList.remove('hide');
+        }
     }
 
     /* This function initially draws the "game level", it will then call
@@ -159,7 +179,6 @@ var Engine = (function(global) {
      * those sorts of things. It's only called once by the init() method.
      */
     function reset() {
-        // noop
     }
 
     /* Go ahead and load all of the images we know we're going to need to

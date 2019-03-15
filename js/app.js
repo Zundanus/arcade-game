@@ -142,6 +142,8 @@ class Player extends MovableObject {
     this.sprite = sprite;
     this.points = 0;
     this.live = 3;
+    this.dead = false;
+    this.won = false;
   }
 
   /**
@@ -158,13 +160,15 @@ class Player extends MovableObject {
             allCollisionsObjects.add(Gem.getNewGem());
         }else{
           this.live -=1;
-          document.querySelector('#liveCounter').innerHTML = this.live;
+          live.innerHTML = this.live;
+          console.log(this.live);
           if (this.live <= 0 ) {
-            alert('you loos');
-            this.points = 0;
+            this.dead = true;
             this.live = 3;
           }
-          this.resetPlayer();
+          else {
+            this.resetPlayer();
+          }
         }
     }
     score.innerHTML = this.points;
@@ -184,9 +188,7 @@ class Player extends MovableObject {
   * @description  displays the win screen
   */
   win(){
-    this.x = this.startX;
-    this.resetPlayer();
-    alert('win win');
+    this.won = true;
   }
 
   /**
@@ -247,4 +249,20 @@ document.addEventListener('keyup', function(e) {
     };
 
     player.handleInput(allowedKeys[e.keyCode]);
+});
+
+/**
+* @description  eventliserener for the button in the messagebox resets the game
+*/
+document.querySelector('.button').addEventListener('click', function(e) {
+  gameBord.classList.remove('hide');
+  gameInfo.classList.remove('hide');
+  gameMessageBox.classList.add('hide');
+  allCollisionsObjects = new Set([new Enemy(-20,60,100,200),
+                    new Enemy(-20,143,75,150),
+                    new Enemy(-20,227,75,125)]);
+  // player object in a variable called player
+  player = new Player(200,405,100,84,'images/char-boy.png');
+  allCollisionsObjects.add(player);
+  allCollisionsObjects.add(Gem.getNewGem());
 });
