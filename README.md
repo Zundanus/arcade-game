@@ -7,6 +7,7 @@ The game it self is a slim remake of the arcade game *Frogger* from the '80's.
 ## Instructions
 
 ### Installation of the game
+Simply download the repo and open index.html
 
 ### How to play
 
