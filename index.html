@@ -4,8 +4,23 @@
     <meta charset="UTF-8">
     <title>Effective JavaScript: Frogger</title>
     <link rel="stylesheet" href="css/style.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 </head>
 <body>
+    <main id="mainBox">
+      <div id='gameInfo'>
+        <div id="gameliveCounter">
+          Lives: <span id="liveCounter">0</span>
+        </div>
+        <div id="gameHader">
+          Bug gems
+        </div>
+        <div id="gameScore">
+          Score: <span id="score">0</span>
+        </div>
+      </div>
+      <div id="gameBord"></div>
+    </main>
     <script src="js/resources.js"></script>
     <script src="js/app.js"></script>
     <script src="js/engine.js"></script>
