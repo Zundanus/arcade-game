@@ -32,7 +32,7 @@ class MovableObject {
       /* The collision logic validation is adaptet from  the version of Antonella Dean's
    		 * collision check: Copyright (c) 2018 Antonella Bernobich Dean;
   		 * https://github.com/aberdean/google-scholarship-fend-projects/tree/master/classic-arcade-game-clone */
-       if (elemet != this && (Math.abs(player.x - elemet.x) <= 60) && (Math.abs(player.y - elemet.y) <= 16)) {
+       if (elemet != this && (Math.abs(player.x - elemet.x) <= 60) && (Math.abs(player.y - elemet.y) <= 15)) {
           return elemet;
        }
     }
@@ -105,11 +105,15 @@ class Gem extends MovableObject {
   update(dt) {
 
   }
-
+  /**
+  * @description  staic method to generate a new gem
+  * @param {int} dt - a time delta between ticks
+  *                   speed for all computers.
+  */
   static getNewGem(){
-    let returnGem = new Gem(Math.floor((Math.random() * 0) + 400),
-                            Math.floor((Math.random() * 0) + 400),
-                            Math.floor((Math.random() * 1) + 2))
+    const x = Math.floor((Math.random() * 4) + 1) * 100;
+    const y = Math.floor((Math.random() * 4) + 1) * 78;
+    let returnGem = new Gem(x,y,Math.floor((Math.random() * 2) + 1))
     return returnGem;
   }
 }
@@ -145,8 +149,11 @@ class Player extends MovableObject {
     if (cObject != null) {
         if (cObject instanceof Gem) {
             gems = null;
+            allCollisionsObjects.delete(cObject);
+            gems = Gem.getNewGem();
+            allCollisionsObjects.add(gems);
         }else{
-          this.reset();
+          this.resetPlayer();
         }
     }
   }
@@ -155,7 +162,7 @@ class Player extends MovableObject {
   /**
   * @description  Sets the gaming figure back to start
   */
-  reset(){
+  resetPlayer(){
     this.x = this.startX;
     this.y = this.startY;
   }
@@ -165,7 +172,7 @@ class Player extends MovableObject {
   */
   win(){
     this.x = this.startX;
-    reset();
+    this.resetPlayer();
     alert('win win');
   }
 
@@ -199,6 +206,7 @@ class Player extends MovableObject {
         }
         break;
     }
+    console.log(`${player.x} ${player.y}`);
   }
 }
 
@@ -209,11 +217,13 @@ let allEnemies = [new Enemy(-20,60,100,200),
                   new Enemy(-20,227,75,125)];
 // player object in a variable called player
 let player = new Player(200,405,100,84,'images/char-boy.png');
-let gems = Gem.getNewGem();
+let gems = null;
 
 let allCollisionsObjects = new Set(allEnemies);
 allCollisionsObjects.add(player);
+gems = Gem.getNewGem();
 allCollisionsObjects.add(gems);
+
 
 /**
 * @description  This listens for key presses and sends the keys to your
