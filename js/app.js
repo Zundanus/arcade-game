@@ -8,7 +8,7 @@
 *                          default is "images/enemy-bug.png"
 */
 class MovableObject {
-  constructor(startX = 0,startY = 0, sprite = 'images/enemy-bug.png') {
+  constructor(startX = 0,startY = 0, sprite = '') {
     this.startX = startX;
     this.startY = startY;
     this.x = startX;
@@ -53,8 +53,8 @@ class MovableObject {
 * @param {int} maxSpeed - the max Pixel value that the element will move
 */
 class Enemy extends MovableObject {
-  constructor(startX = 0, startY = 0, minSpeed = 50, maxSpeed = 50) {
-    super(startX,startY)
+  constructor(startX = 0, startY = 0, minSpeed = 50, maxSpeed = 50,sprite = 'images/enemy-bug.png') {
+    super(startX,startY,sprite)
     this.maxSpeed = maxSpeed;
     this.minSpeed = minSpeed;
     this.speed = Math.floor((Math.random() * this.maxSpeed) +  this.minSpeed);
@@ -136,10 +136,9 @@ class Gem extends MovableObject {
 */
 class Player extends MovableObject {
   constructor(startX = 0, startY = 0, movementX = 100, movementY = 84,sprite = 'images/char-boy.png') {
-    super(startX,startY)
+    super(startX,startY,sprite)
     this.speedX = movementX;
     this.speedY = movementY;
-    this.sprite = sprite;
     this.points = 0;
     this.live = 3;
     this.dead = false;
