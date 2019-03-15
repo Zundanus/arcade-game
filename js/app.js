@@ -32,7 +32,7 @@ class MovableObject {
       /* The collision logic validation is adaptet from  the version of Antonella Dean's
    		 * collision check: Copyright (c) 2018 Antonella Bernobich Dean;
   		 * https://github.com/aberdean/google-scholarship-fend-projects/tree/master/classic-arcade-game-clone */
-       if (elemet != this && (Math.abs(player.x - elemet.x) <= 60) && (Math.abs(player.y - elemet.y) <= 15)) {
+       if (elemet != this && (Math.abs(player.x - elemet.x) <= 60) && (Math.abs(player.y - elemet.y) <= 17)) {
           return elemet;
        }
     }
