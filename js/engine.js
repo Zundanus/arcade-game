@@ -21,9 +21,9 @@ var Engine = (function(global) {
     var doc = global.document,
         win = global.window,
         gameBord = doc.querySelector('#gameBord'),
+        score = doc.querySelector('#scores'),
         canvas = doc.createElement('canvas'),
         ctx = canvas.getContext('2d'),
-        score = canvas.getContext('#score'),
         lastTime;
 
     canvas.width = 505;

@@ -141,6 +141,7 @@ class Player extends MovableObject {
     this.speedY = movementY;
     this.sprite = sprite;
     this.points = 0;
+    this.live = 3;
   }
 
   /**
@@ -156,10 +157,18 @@ class Player extends MovableObject {
             allCollisionsObjects.delete(cObject);
             allCollisionsObjects.add(Gem.getNewGem());
         }else{
+          this.live -=1;
+          document.querySelector('#liveCounter').innerHTML = this.live;
+          if (this.live <= 0 ) {
+            alert('you loos');
+            this.points = 0;
+            this.live = 3;
+          }
           this.resetPlayer();
         }
     }
     score.innerHTML = this.points;
+    live.innerHTML = this.live;
   }
 
 
@@ -169,7 +178,6 @@ class Player extends MovableObject {
   resetPlayer(){
     this.x = this.startX;
     this.y = this.startY
-    this.points = 0;
   }
 
   /**
@@ -214,6 +222,8 @@ class Player extends MovableObject {
   }
 }
 
+const score = document.querySelector('#scores');
+const live = document.querySelector('#liveCounter')
 // Now instantiate your objects.
 let allCollisionsObjects = new Set([new Enemy(-20,60,100,200),
                   new Enemy(-20,143,75,150),
