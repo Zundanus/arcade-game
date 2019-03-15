@@ -98,15 +98,6 @@
         readyCallbacks.push(func);
     }
 
-    function setUnion(firstObject, secondObject) {
-      let result = new Set(firstObject);
-      for (let element of secondObject) {
-          result.add(element);
-        }
-        return result;
-    }
-
-
     /* This object defines the publicly accessible functions available to
      * developers by creating a global Resources object.
      */

@@ -85,12 +85,15 @@ class Enemy extends MovableObject {
 class Gem extends MovableObject {
   constructor(startX = 0, startY = 0, color = blue) {
     super(startX,startY)
+    this.points = 10;
     switch (color) {
       case 1:
         this.sprite = 'images/Gem Blue.png';
+        this.points = 20;
         break;
       case 2:
           this.sprite = 'images/Gem Green.png';
+          this.points = 30;
         break;
       default:
         this.sprite = 'images/Gem Orange.png';
@@ -112,7 +115,7 @@ class Gem extends MovableObject {
   */
   static getNewGem(){
     const x = Math.floor((Math.random() * 4) + 1) * 100;
-    const y = Math.floor((Math.random() * 4) + 1) * 78;
+    const y = Math.floor((Math.random() * 4) + 1) * 76;
     let returnGem = new Gem(x,y,Math.floor((Math.random() * 2) + 1))
     return returnGem;
   }
@@ -137,6 +140,7 @@ class Player extends MovableObject {
     this.speedX = movementX;
     this.speedY = movementY;
     this.sprite = sprite;
+    this.points = 0;
   }
 
   /**
@@ -148,12 +152,14 @@ class Player extends MovableObject {
     let cObject = super.checkCollisions();
     if (cObject != null) {
         if (cObject instanceof Gem) {
+            this.points += cObject.points;
             allCollisionsObjects.delete(cObject);
             allCollisionsObjects.add(Gem.getNewGem());
         }else{
           this.resetPlayer();
         }
     }
+    score.innerHTML = this.points;
   }
 
 
@@ -162,7 +168,8 @@ class Player extends MovableObject {
   */
   resetPlayer(){
     this.x = this.startX;
-    this.y = this.startY;
+    this.y = this.startY
+    this.points = 0;
   }
 
   /**
@@ -204,12 +211,10 @@ class Player extends MovableObject {
         }
         break;
     }
-    console.log(`${player.x} ${player.y}`);
   }
 }
 
 // Now instantiate your objects.
-// enemy objects in an array called allEnemies
 let allCollisionsObjects = new Set([new Enemy(-20,60,100,200),
                   new Enemy(-20,143,75,150),
                   new Enemy(-20,227,75,125)]);
