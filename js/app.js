@@ -54,7 +54,7 @@ class MovableObject {
 */
 class Enemy extends MovableObject {
   constructor(startX = 0, startY = 0, minSpeed = 50, maxSpeed = 50,sprite = 'images/enemy-bug.png') {
-    super(startX,startY,sprite)
+    super(startX,startY,sprite);
     this.maxSpeed = maxSpeed;
     this.minSpeed = minSpeed;
     this.speed = Math.floor((Math.random() * this.maxSpeed) +  this.minSpeed);
@@ -83,20 +83,30 @@ class Enemy extends MovableObject {
 * @param {int} color - color of the gem (1 blue, 2 green, 3 orange);
 */
 class Gem extends MovableObject {
-  constructor(startX = 0, startY = 0, color = blue) {
-    super(startX,startY)
+  constructor(startX = 0, startY = 0, color = 1) {
+    super(startX,startY);
     this.points = 10;
+    this.isKey = false;
     switch (color) {
       case 1:
-        this.sprite = 'images/Gem Blue.png';
-        this.points = 20;
-        break;
       case 2:
+      case 3:
+        this.sprite = 'images/Gem Blue.png';
+        this.points = 25;
+        break;
+      case 4:
+      case 5:
           this.sprite = 'images/Gem Green.png';
-          this.points = 30;
+          this.points = 40;
+        break;
+      case 6:
+          this.sprite = 'images/Key.png';
+          this.isKey = true;
+          this.points = 60;
         break;
       default:
         this.sprite = 'images/Gem Orange.png';
+        this.points = 10;
     }
   }
 
@@ -116,7 +126,7 @@ class Gem extends MovableObject {
   static getNewGem(){
     const x = Math.floor((Math.random() * 3) + 1) * 100;
     const y = Math.floor((Math.random() * 3) + 1) * 76;
-    let returnGem = new Gem(x,y,Math.floor((Math.random() * 3) + 1))
+    let returnGem = new Gem(x,y,Math.floor((Math.random() * 12) + 1))
     return returnGem;
   }
 }
@@ -136,13 +146,14 @@ class Gem extends MovableObject {
 */
 class Player extends MovableObject {
   constructor(startX = 0, startY = 0, movementX = 100, movementY = 84,sprite = 'images/char-boy.png') {
-    super(startX,startY,sprite)
+    super(startX,startY,sprite);
     this.speedX = movementX;
     this.speedY = movementY;
     this.points = 0;
     this.live = 3;
     this.dead = false;
     this.won = false;
+    this.hasKey = false;
   }
 
   /**
@@ -154,6 +165,9 @@ class Player extends MovableObject {
     let cObject = super.checkCollisions();
     if (cObject != null) {
         if (cObject instanceof Gem) {
+            if (cObject.isKey) {
+              this.hasKey = true;
+            }
             this.points += cObject.points;
             allCollisionsObjects.delete(cObject);
             allCollisionsObjects.add(Gem.getNewGem());
@@ -180,7 +194,7 @@ class Player extends MovableObject {
   */
   resetPlayer(){
     this.x = this.startX;
-    this.y = this.startY
+    this.y = this.startY;
   }
 
   /**
@@ -205,7 +219,7 @@ class Player extends MovableObject {
           if (this.y - this.speedY >= 0) {
             this.y = this.y - this.speedY;
           }
-          else {
+          else if(this.hasKey) {
             this.win();
           }
         break;
@@ -224,7 +238,7 @@ class Player extends MovableObject {
 }
 
 const score = document.querySelector('#scores');
-const live = document.querySelector('#liveCounter')
+const live = document.querySelector('#liveCounter');
 // Now instantiate your objects.
 let allCollisionsObjects = new Set([new Enemy(-20,60,100,200),
                   new Enemy(-20,143,75,150),

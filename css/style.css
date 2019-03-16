@@ -1,5 +1,5 @@
 body {
-
+  font-family: 'Coda', cursive;
 }
 main{
   width: 100%;
@@ -12,6 +12,9 @@ main{
   justify-content: center;
   align-items: center;
   flex-direction: column;
+}
+h1{
+  margin-bottom: 60px; 
 }
 #gameBord {
   margin-top: -40px;
