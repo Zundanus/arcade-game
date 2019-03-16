@@ -1,49 +1,57 @@
 body {
   font-family: 'Coda', cursive;
 }
-main{
+
+main {
   width: 100%;
   margin-top: 1em;
   margin-left: auto;
   margin-right: auto;
   margin-bottom: 1em;
-  padding-top:10px;
+  padding-top: 10px;
   display: flex;
   justify-content: center;
   align-items: center;
   flex-direction: column;
 }
-h1{
+
+h1 {
   margin-bottom: 60px;
 }
+
 #gameBord {
   margin-top: -40px;
-  -webkit-box-shadow: 0px 0px 46px 0px rgba(0,0,0,0.75);
-  -moz-box-shadow: 0px 0px 46px 0px rgba(0,0,0,0.75);
-  box-shadow: 0px 0px 46px 0px rgba(0,0,0,0.75);
+  -webkit-box-shadow: 0px 0px 46px 0px rgba(0, 0, 0, 0.75);
+  -moz-box-shadow: 0px 0px 46px 0px rgba(0, 0, 0, 0.75);
+  box-shadow: 0px 0px 46px 0px rgba(0, 0, 0, 0.75);
   padding-left: 10px;
-  padding-right:10px;
+  padding-right: 10px;
 }
-#gameInfo{
+
+#gameInfo {
   display: flex;
   flex-wrap: wrap;
   width: 505px;
   padding-left: 10px;
-  padding-right:10px;
+  padding-right: 10px;
 }
-#gameHighScore{
+
+#gameHighScore {
   width: 60%;
   text-align: center;
 }
-#gameliveCounter{
+
+#gameliveCounter {
   width: 15%;
   margin-left: 10px;
 }
-#gameScore{
+
+#gameScore {
   width: 20%;
   margin-right: 10px;
   text-align: right;
 }
+
 #gameMessageBox {
   display: flex;
   justify-content: center;
@@ -55,13 +63,14 @@ h1{
   -moz-border-radius: 41px 43px 43px 44px;
   -webkit-border-radius: 41px 43px 43px 44px;
   border: 0px solid #e0e0e0;
-  -webkit-box-shadow: 0px 0px 46px 0px rgba(0,0,0,0.75);
-  -moz-box-shadow: 0px 0px 46px 0px rgba(0,0,0,0.75);
-  box-shadow: 0px 0px 46px 0px rgba(0,0,0,0.75);
+  -webkit-box-shadow: 0px 0px 46px 0px rgba(0, 0, 0, 0.75);
+  -moz-box-shadow: 0px 0px 46px 0px rgba(0, 0, 0, 0.75);
+  box-shadow: 0px 0px 46px 0px rgba(0, 0, 0, 0.75);
   margin-top: 100px;
   margin-left: auto;
   margin-right: auto;
 }
+
 .button {
   margin-top: 30px;
   font-size: 1.5em;
@@ -75,7 +84,8 @@ h1{
   box-shadow: 10px 10px 5px 0px rgba(0, 0, 0, 0.75);
   cursor: pointer;
 }
-.hide{
+
+.hide {
   visibility: hidden;
   display: none !important;
 }

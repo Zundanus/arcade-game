@@ -1,36 +1,36 @@
 <!DOCTYPE html>
 <html>
-<head>
+  <head>
     <meta charset="UTF-8">
     <title>Effective JavaScript: Frogger</title>
     <link rel="stylesheet" href="css/style.css">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-</head>
-<body>
-  <main id="mainBox">
-    <h1>Bug Diamonds</h1>
-    <div id="gameInfo">
-      <div id="gameliveCounter">
-        Lives: <span id="liveCounter">0</span>
+  </head>
+  <body>
+    <main id="mainBox">
+      <h1>Bug Diamonds</h1>
+      <div id="gameInfo">
+        <div id="gameliveCounter">
+          Lives: <span id="liveCounter">0</span>
+        </div>
+        <div id="gameHighScore">
+          High Score: <span id="highscore">0</span>
+        </div>
+        <div id="gameScore">
+          Score: <span id="scores">0</span>
+        </div>
       </div>
-      <div id="gameHighScore">
-        High Score: <span id="highscore">0</span>
+      <div id="gameBord"></div>
+    </main>
+    <section id="gameMessageBox" class="hide">
+      <h2><span id='messageHeader'>You Lose</span>!!!!</h2>
+      <div>
+        <span id='messageText'>You You lost with the game with a score of </span> <span id='finalScore'>0</span>.
       </div>
-      <div id="gameScore">
-        Score: <span id="scores">0</span>
-      </div>
-    </div>
-    <div id="gameBord"></div>
-  </main>
-  <section id="gameMessageBox"  class="hide">
-    <h2><span id='messageHeader'>You Lose</span>!!!!</h2>
-    <div>
-      <span id='messageText'>You You lost with the game with a score of </span> <span id='finalScore'>0</span>.
-    </div>
-    <button class="button">Play again?</button>
-  </section>
-  <script src="js/resources.js"></script>
-  <script src="js/app.js"></script>
-  <script src="js/engine.js"></script>
-</body>
+      <button class="button">Play again?</button>
+    </section>
+    <script src="js/resources.js"></script>
+    <script src="js/app.js"></script>
+    <script src="js/engine.js"></script>
+  </body>
 </html>
