@@ -52,7 +52,7 @@ h1 {
   text-align: right;
 }
 
-#gameMessageBox {
+#gameMessageBox, #gameInstruction {
   display: flex;
   justify-content: center;
   align-items: center;
@@ -69,6 +69,26 @@ h1 {
   margin-top: 100px;
   margin-left: auto;
   margin-right: auto;
+}
+
+#gameInstruction {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  width: 505px;
+  height: 150px;
+  border-radius: 41px 43px 43px 44px;
+  -moz-border-radius: 41px 43px 43px 44px;
+  -webkit-border-radius: 41px 43px 43px 44px;
+  border: 0px solid #e0e0e0;
+  -webkit-box-shadow: 0px 0px 46px 0px rgba(0, 0, 0, 0.75);
+  -moz-box-shadow: 0px 0px 46px 0px rgba(0, 0, 0, 0.75);
+  box-shadow: 0px 0px 46px 0px rgba(0, 0, 0, 0.75);
+  margin-top: 10px;
+  margin-left: auto;
+  margin-right: auto;
+  padding: 20px;
 }
 
 .button {
