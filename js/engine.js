@@ -172,6 +172,11 @@ var Engine = (function(global) {
         allCollisionsObjects.forEach(function(object) {
             object.render();
         });
+        if (player.hasKey) {
+          displayOnlyObjects.forEach(function(object) {
+              object.render();
+          });
+        }
     }
 
     /* This function does nothing but it could have been a good place to
@@ -194,7 +199,8 @@ var Engine = (function(global) {
         'images/Gem Green.png',
         'images/Gem Blue.png',
         'images/Gem Orange.png',
-        'images/Key.png'
+        'images/Key.png',
+        'images/Rock.png'
     ]);
     Resources.onReady(init);
 

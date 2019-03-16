@@ -7,7 +7,7 @@
 * @param {string} spirit - picture that will be drawn for the object
 *                          default is "images/enemy-bug.png"
 */
-class MovableObject {
+class GameObject {
   constructor(startX = 0,startY = 0, sprite = '') {
     this.startX = startX;
     this.startY = startY;
@@ -52,7 +52,7 @@ class MovableObject {
 * @param {int} minSpeed - the min Pixel value that the element will move
 * @param {int} maxSpeed - the max Pixel value that the element will move
 */
-class Enemy extends MovableObject {
+class Enemy extends GameObject {
   constructor(startX = 0, startY = 0, minSpeed = 50, maxSpeed = 50,sprite = 'images/enemy-bug.png') {
     super(startX,startY,sprite);
     this.maxSpeed = maxSpeed;
@@ -82,7 +82,7 @@ class Enemy extends MovableObject {
 * @param {int} startY - Startposition for the y (hight) line
 * @param {int} color - color of the gem (1 blue, 2 green, 3 orange);
 */
-class Gem extends MovableObject {
+class Gem extends GameObject {
   constructor(startX = 0, startY = 0, color = 1) {
     super(startX,startY);
     this.points = 10;
@@ -144,7 +144,7 @@ class Gem extends MovableObject {
 * @param {int} minSpeed - the min Pixel value that the element will move
 * @param {int} maxSpeed - the max Pixel value that the element will move
 */
-class Player extends MovableObject {
+class Player extends GameObject {
   constructor(startX = 0, startY = 0, movementX = 100, movementY = 84,sprite = 'images/char-boy.png') {
     super(startX,startY,sprite);
     this.speedX = movementX;
@@ -237,12 +237,18 @@ class Player extends MovableObject {
   }
 }
 
+
+// Now instantiate your objects.
 const score = document.querySelector('#scores');
 const live = document.querySelector('#liveCounter');
-// Now instantiate your objects.
 let allCollisionsObjects = new Set([new Enemy(-20,60,100,200),
                   new Enemy(-20,143,75,150),
                   new Enemy(-20,227,75,125)]);
+let displayOnlyObjects = new Set([new GameObject(0,-18,'images/Rock.png'),
+                                  new GameObject(100,-18,'images/Rock.png'),
+                                  new GameObject(200,-18,'images/Rock.png'),
+                                  new GameObject(300,-18,'images/Rock.png'),
+                                  new GameObject(400,-18,'images/Rock.png')]);
 // player object in a variable called player
 let player = new Player(200,405,100,84,'images/char-boy.png');
 allCollisionsObjects.add(player);
