@@ -26,6 +26,7 @@ var Engine = (function(global) {
         messageText = doc.querySelector('#messageText'),
         gameMessageBox = doc.querySelector('#gameMessageBox'),
         finalScore = doc.querySelector('#finalScore'),
+        highScore = doc.querySelector('#highscore'),
         canvas = doc.createElement('canvas'),
         ctx = canvas.getContext('2d'),
         lastTime;
@@ -99,21 +100,30 @@ var Engine = (function(global) {
           enemy.update(dt);
         });
         if (player.won) {
-          finalScore.innerHTML = player.points;
           messageText.innerHTML = 'You won with a score of ';
           messageHeader.innerHTML = 'You WON !!!';
-          gameBord.classList.add('hide');
-          gameInfo.classList.add('hide');
-          gameMessageBox.classList.remove('hide');
+          setMessageBoxValues();
         }
         else if (player.dead) {
-          finalScore.innerHTML = player.points;
           messageText.innerHTML = 'You lost with a score of ';
           messageHeader.innerHTML = 'You LOST !!!';
-          gameBord.classList.add('hide');
-          gameInfo.classList.add('hide');
-          gameMessageBox.classList.remove('hide');
+          setMessageBoxValues();
         }
+    }
+
+    /**
+    * @description  Sets the Messagebox values and shows the messagebox
+    */
+    function setMessageBoxValues(){
+      gameBord.classList.add('hide');
+      gameInfo.classList.add('hide');
+      gameMessageBox.classList.remove('hide');
+      finalScore.innerHTML = player.points;
+      let highScoreValue = Number(localStorage.getItem('highScore'));
+      if (highScoreValue <= player.points) {
+        localStorage.setItem('highScore',player.points);
+        highScore.innerHTML = player.points;
+      }
     }
 
     /* This function initially draws the "game level", it will then call
@@ -184,6 +194,13 @@ var Engine = (function(global) {
      * those sorts of things. It's only called once by the init() method.
      */
     function reset() {
+      let highScoreValue = Number(localStorage.getItem('highScore'));
+      if (highScoreValue === undefined) {
+        localStorage.setItem('highScore',0);
+      } else {
+        highScore.innerHTML = highScoreValue;
+      }
+
     }
 
     /* Go ahead and load all of the images we know we're going to need to

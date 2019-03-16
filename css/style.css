@@ -14,7 +14,7 @@ main{
   flex-direction: column;
 }
 h1{
-  margin-bottom: 60px; 
+  margin-bottom: 60px;
 }
 #gameBord {
   margin-top: -40px;
@@ -31,7 +31,7 @@ h1{
   padding-left: 10px;
   padding-right:10px;
 }
-#gameHader{
+#gameHighScore{
   width: 60%;
   text-align: center;
 }
