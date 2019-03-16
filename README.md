@@ -10,6 +10,14 @@ The game it self is a slim remake of the arcade game *Frogger* from the '80's.
 Simply download the repo and open index.html
 
 ### How to play
+The Goal of the game is to get your figure over the river on top of the gamebord.
+To do this you have to move your figure with the arrow keys arround and collect the dimonds untill you find a key. After that you can cross the river.
+
+##Points
+#####orange gem: 10
+#####blue gem: 25
+#####green gem: 40
+#####key: 60
 
 ## Acknowledgements
 The following seits and resources where used to develop or inspire parts of this program:
